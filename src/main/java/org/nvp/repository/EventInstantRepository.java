@@ -8,6 +8,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.time.Instant;
 import java.util.List;
 
-public interface OrderInstantRepository extends JpaRepository<EventInstant, Long> {
-    List<EventInstant> findByOrderDateTimeBetween(Instant dateFrom, Instant dateTo);
+public interface EventInstantRepository extends JpaRepository<EventInstant, Long> {
+    List<EventInstant> findByEventDateTimeBetween(Instant dateFrom, Instant dateTo);
 }

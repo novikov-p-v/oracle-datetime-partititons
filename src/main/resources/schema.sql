@@ -1,6 +1,3 @@
-create user app_user identified by app_user;
-grant all privileges to app_user;
-
 create table app_user.event_table(
       id number(38,0) primary key,
       event_date timestamp
@@ -22,25 +19,15 @@ alter table app_user.event_table modify partition by range (event_date)
     partition p12 values less than (to_date('01.01.2024', 'dd.MM.yyyy'))
     );
 
+truncate table app_user.event_table;
+
 declare
 begin
-    for i in 1..100000
+    for i in 1..36500
     loop
-            insert into app_user.event_table (id, event_date) values (i, to_date('01.01.2024', 'dd.MM.yyyy') - i/ 100);
+        insert into app_user.event_table (id, event_date) values (i, to_date('01.01.2024', 'dd.MM.yyyy') - i/ 100);
     end loop;
 end;
 
 commit;
-
-select *from app_user.event_table where event_date between
-    to_date('01.07.2023', 'dd.MM.yyyy') and to_date('02.07.2023', 'dd.MM.yyyy');
-
-select * from V_$SQL where sql_fulltext like '%event_table%';
-
-SELECT * FROM table (DBMS_XPLAN.DISPLAY_CURSOR('fx1bbf2170wwk'));
-
-select * from V_$SQL_PLAN where SQL_ID = '64wcbdt68haxp'
-order by id;
-
-SELECT * FROM table (DBMS_XPLAN.DISPLAY_CURSOR);
 

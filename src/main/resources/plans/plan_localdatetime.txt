@@ -1,0 +1,26 @@
+"SQL_ID  g0dvsfjwvya4s, child number 0"
+-------------------------------------
+"select eldt1_0.id,eldt1_0.event_date from event_table eldt1_0 where "
+eldt1_0.event_date between :1  and :2
+
+Plan hash value: 1753504259
+
+---------------------------------------------------------------------------------------------------------
+| Id  | Operation                 | Name        | Rows  | Bytes | Cost (%CPU)| Time     | Pstart| Pstop |
+---------------------------------------------------------------------------------------------------------
+|   0 | SELECT STATEMENT          |             |       |       |   278 (100)|          |       |       |
+|*  1 |  FILTER                   |             |       |       |            |          |       |       |
+|   2 |   PARTITION RANGE ITERATOR|             |  1613 | 41938 |   278   (2)| 00:00:01 |   KEY |   KEY |
+|*  3 |    TABLE ACCESS FULL      | EVENT_TABLE |  1613 | 41938 |   278   (2)| 00:00:01 |   KEY |   KEY |
+---------------------------------------------------------------------------------------------------------
+
+Predicate Information (identified by operation id):
+---------------------------------------------------
+
+   1 - filter(:2>=:1)
+"   3 - filter((""ELDT1_0"".""EVENT_DATE"">=:1 AND ""ELDT1_0"".""EVENT_DATE""<=:2))"
+
+Note
+-----
+   - dynamic statistics used: dynamic sampling (level=2)
+
