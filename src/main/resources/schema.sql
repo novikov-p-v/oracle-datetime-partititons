@@ -19,8 +19,6 @@ alter table app_user.event_table modify partition by range (event_date)
     partition p12 values less than (to_date('01.01.2024', 'dd.MM.yyyy'))
     );
 
-truncate table app_user.event_table;
-
 declare
 begin
     for i in 1..36500
